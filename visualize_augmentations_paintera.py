@@ -1,5 +1,7 @@
 # uncomment to see debug output
 import logging
+import sys
+sys.path.append('/groups/saalfeld/home/heinrichl/Projects/git_repos/gunpowder/')
 
 from fuse import Misalign, Snapshot
 
@@ -124,7 +126,6 @@ output_roi = Roi(offset=output_offset, shape=output_shape)
 input_roi  = Roi(offset=input_offset, shape=input_shape)
 
 augmentations = (
-    Snapshot(dataset_names={GT_LABELS: 'volumes/gt', RAW: 'volumes/raw'}, output_dir='.', output_filename='snapshot-before.h5', attributes_callback=Snapshot.default_attributes_callback()),
     ElasticAugment(
         voxel_size=(360.0, 36.0, 36.0),
         control_point_spacing=(4, 40, 40),
@@ -133,8 +134,7 @@ augmentations = (
         subsample=8,
         augmentation_probability=1.0,
         seed=None),
-    Misalign(z_resolution=360, prob_slip=0.2, prob_shift=0.5, max_misalign=(3600, 0), seed=100, ignore_keys_for_slip=(GT_LABELS,)),
-    Snapshot(dataset_names={GT_LABELS: 'volumes/gt', RAW: 'volumes/raw'}, output_dir='.', output_filename='snapshot-after.h5', attributes_callback=Snapshot.default_attributes_callback())
+    # Misalign(z_resolution=360, prob_slip=0.2, prob_shift=0.0, max_misalign=(3600, 0), seed=100, ignore_keys_for_slip=(GT_LABELS,)),
     # DefectAugment(
     #     RAW,
     #     prob_missing=0.03,
@@ -166,8 +166,7 @@ PainteraBaseView = autoclass('org.janelia.saalfeldlab.paintera.PainteraBaseView'
 viewer = PainteraBaseView.defaultView()
 pbv = viewer.baseView
 scene, stage = payntera.jfx.start_stage(viewer.paneWithStatus.getPane())
-screen_scale_setter = lambda: pbv.orthogonalViews().setScreenScales([0.3, 0.1, 0.03])
-# payntera.jfx.invoke_on_jfx_application_thread(screen_scale_setter)
+payntera.jfx.invoke_on_jfx_application_thread(lambda: pbv.orthogonalViews().setScreenScales([0.3, 0.1, 0.03]))
 
 snapshot_states = add_to_viewer(snapshot, keys=keys, name=lambda key: '%s-snapshot'%key.identifier)
 states          = add_to_viewer(batch, keys=keys)
