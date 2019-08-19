@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 from .defect_augment import DefectAugment
 from .elastic_augment import ElasticAugment
+from .intensity_augment import IntensityAugment
 from .lazy_string_representation import LazyStringRepresentation
 from .log import Log
 from .mask_out_labels import MaskOutLabels
