@@ -1,6 +1,6 @@
 import numpy as np
 
-from .batch_filter import BatchFilter
+from gunpowder import BatchFilter
 from collections import Iterable
 
 class IntensityAugment(BatchFilter):
