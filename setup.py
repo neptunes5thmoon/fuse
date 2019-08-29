@@ -7,12 +7,12 @@ with open(os.path.join(here, 'README.md')) as f:
     fuse_long_description = f.read()
 
 install_requires = [
-    'pip>=18.1',
+    'pip>=19.1',
     'numpy',
     'scipy',
     'h5py',
     'augment-nd',
-    'gunpowder @ git+https://github.com/funkey/gunpowder@721718b6569b47a2f5d5d6633c76c85f779e25c7'
+    'gunpowder @ git+https://github.com/neptunes5thmoon/gunpowder@dist_transform_py3'
 ]
 
 # will need python 3.6 for f-strings in fuse.version_info
@@ -29,12 +29,13 @@ version = version_info['_version']
 setup(
     name='fuse',
     version=version.version(),
-    author='Philipp Hanslovsky',
+    author='Philipp Hanslovsky, Larissa Heinrich',
     author_email='hanslovskyp@janelia.hhmi.org',
     description='Fuse to get gunpowder started',
     long_description=fuse_long_description,
     long_description_content_type='text/markdown',
-    url=f'https://github.com/hanslovsky/{name}',
+    url=f'https://github.com/neptunes5thmoon/{name}',
+    dependency_links=['git+https://github.com/neptunes5thmoon/gunpowder@dist_transform_py3#egg=gunpowder'],
     license='bsd-2',
     packages=[name, f'{name}.ext'],
     install_requires=install_requires,
